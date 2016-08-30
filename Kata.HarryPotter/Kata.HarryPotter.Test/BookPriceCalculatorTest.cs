@@ -23,7 +23,7 @@ namespace Kata.HarryPotter.Test
         }
 
         [TestMethod]
-        public void OneBook_CostsEight()
+        public void OneCopyOfBookOne_CostsEight()
         {
             List<Int32> books = this.GenerateBooksList(1);
 
@@ -31,7 +31,47 @@ namespace Kata.HarryPotter.Test
 
             Assert.AreEqual(8, cost);
         }
-     
+
+        [TestMethod]
+        public void OneCopyOfBookTwo_CostsEight()
+        {
+            List<Int32> books = this.GenerateBooksList(2);
+
+            Decimal cost = BookPriceCalculator.Calculate(books);
+
+            Assert.AreEqual(8, cost);
+        }
+
+        [TestMethod]
+        public void OneCopyOfBookThree_CostsEight()
+        {
+            List<Int32> books = this.GenerateBooksList(3);
+
+            Decimal cost = BookPriceCalculator.Calculate(books);
+
+            Assert.AreEqual(8, cost);
+        }
+
+        [TestMethod]
+        public void OneCopyOfBookFour_CostsEight()
+        {
+            List<Int32> books = this.GenerateBooksList(4);
+
+            Decimal cost = BookPriceCalculator.Calculate(books);
+
+            Assert.AreEqual(8, cost);
+        }
+
+        [TestMethod]
+        public void OneCopyOfBookFive_CostsEight()
+        {
+            List<Int32> books = this.GenerateBooksList(5);
+
+            Decimal cost = BookPriceCalculator.Calculate(books);
+
+            Assert.AreEqual(8, cost);
+        }
+
         private List<Int32> GenerateBooksList(params Int32[] books)
         {
             List<Int32> booksList = new List<Int32>();
