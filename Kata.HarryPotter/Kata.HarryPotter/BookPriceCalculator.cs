@@ -12,11 +12,7 @@ namespace Kata.HarryPotter
 
         public static Decimal Calculate(List<Int32> books)
         {
-            if(books.Any())
-            {
-                return 8;
-            }
-            return 0;
+            return books.Count * 8;
         }
 
         #endregion
