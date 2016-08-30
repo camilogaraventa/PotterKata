@@ -20,12 +20,16 @@ namespace Kata.HarryPotter
             {
                 return books.Count * 8 * 0.9m;
             }
+            else if (books.Distinct().Count() == 4)
+            {
+                return books.Count * 8 * 0.8m;
+            }
             else
             {
                 return books.Count * 8;
             }
         }
-
+        
         #endregion
     }
 }
