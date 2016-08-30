@@ -12,9 +12,13 @@ namespace Kata.HarryPotter
 
         public static Decimal Calculate(List<Int32> books)
         {
-            if (books.Count > 1 && books.Distinct().Count() == 2)
+            if (books.Distinct().Count() == 2)
             {
                 return books.Count * 8 * 0.95m;
+            }
+            else if(books.Distinct().Count() == 3)
+            {
+                return books.Count * 8 * 0.9m;
             }
             else
             {
