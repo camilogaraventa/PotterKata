@@ -112,6 +112,16 @@ namespace Kata.HarryPotter.Test
             Assert.AreEqual(25.6m, cost);
         }
 
+        [TestMethod]
+        public void FiveDifferentBooks_GetTwentyFivePercentDiscount()
+        {
+            List<Int32> books = this.GenerateBooksList(1, 2, 3, 4, 5);
+
+            Decimal cost = BookPriceCalculator.Calculate(books);
+
+            Assert.AreEqual(30, cost);
+        }
+
         private List<Int32> GenerateBooksList(params Int32[] books)
         {
             List<Int32> booksList = new List<Int32>();

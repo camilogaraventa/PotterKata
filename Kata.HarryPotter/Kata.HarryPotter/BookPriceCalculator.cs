@@ -12,24 +12,35 @@ namespace Kata.HarryPotter
 
         public static Decimal Calculate(List<Int32> books)
         {
-            if (books.Distinct().Count() == 2)
+            Decimal discountFactor = CalculateDiscountFactor(books);
+
+            return books.Count * 8 * discountFactor;
+        }
+
+        private static Decimal CalculateDiscountFactor(List<Int32> books)
+        {
+            if(books.Distinct().Count() == 2)
             {
-                return books.Count * 8 * 0.95m;
+                return 0.95m;
             }
-            else if(books.Distinct().Count() == 3)
+            else if (books.Distinct().Count() == 3)
             {
-                return books.Count * 8 * 0.9m;
+                return 0.9m;
             }
             else if (books.Distinct().Count() == 4)
             {
-                return books.Count * 8 * 0.8m;
+                return 0.8m;
+            }
+            else if (books.Distinct().Count() == 5)
+            {
+                return 0.75m;
             }
             else
             {
-                return books.Count * 8;
+                return 1;
             }
         }
-        
+
         #endregion
     }
 }
