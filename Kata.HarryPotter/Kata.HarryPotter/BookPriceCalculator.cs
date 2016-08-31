@@ -15,14 +15,8 @@ namespace Kata.HarryPotter
         private const Decimal threeBooksDiscountFactor = 0.9m;
         private const Decimal fourBooksDiscountFactor = 0.8m;
         private const Decimal fiveBooksDiscountFactor = 0.75m;
-        private List<BooksCombo> _combos;
 
         #endregion
-
-        public BookPriceCalculator()
-        {
-            this._combos = new List<BooksCombo>();
-        }
 
         #region Methods
 
@@ -31,11 +25,11 @@ namespace Kata.HarryPotter
             if (!books.Any())
                 return 0;
 
-            this.CalculateCombos(books);
+            List<BooksCombo> combos = this.CalculateCombos(books);
 
             Decimal minPrice = Decimal.MaxValue;
 
-            foreach (BooksCombo combo in this._combos)
+            foreach (BooksCombo combo in combos)
             {
                 Decimal comboPrice = CalculateComboPrice(combo);
 
@@ -61,31 +55,33 @@ namespace Kata.HarryPotter
             return comboPrice;
         }
 
-        private void CalculateCombos(List<Int32> books)
+        private List<BooksCombo> CalculateCombos(List<Int32> books)
         {
-            this._combos = new List<BooksCombo>();
+            List<BooksCombo> combos = new List<BooksCombo>();
 
-            List<Tuple<Int32, Int32>> booksAmmount = books.Distinct().Select(b => new Tuple<Int32, Int32>(b, books.Count(bk => bk == b))).ToList();
-
-            Int32 max = booksAmmount.Max(ba => ba.Item2);
-
-            BooksCombo combo = new BooksCombo();
-
-            for (Int32 i = 0; i < max; i++)
+            for (Int32 i = 1; i <= books.Distinct().Count(); i++)
             {
-                List<Int32> booksGroup = new List<Int32>();
-                foreach (Tuple<Int32, Int32> bookAmmount in booksAmmount)
+                BooksCombo combo = new BooksCombo();
+
+                foreach (Int32 book in books)
                 {
-                    if (bookAmmount.Item2 > i)
+                    IEnumerable<List<Int32>> groups = combo.GetGroupsThatDoNotContainBook(book);
+
+                    List<Int32> group = groups.FirstOrDefault(g => g.Count < i);
+                    if (group != null)
                     {
-                        booksGroup.Add(bookAmmount.Item1);
+                        group.Add(book);
+                    }
+                    else
+                    {
+                        combo.AddBook(book);
                     }
                 }
-                combo.AddBooks(booksGroup.ToArray());
+
+                combos.Add(combo);
             }
 
-            this._combos.Add(combo);
-
+            return combos;
         }
 
         private Decimal CalculateDiscountFactor(List<Int32> books)

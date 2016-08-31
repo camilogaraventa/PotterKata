@@ -25,6 +25,11 @@ namespace Kata.HarryPotter
             this._bookGroups.Add(new List<Int32>(books));
         }
 
+        public IEnumerable<List<Int32>> GetGroupsThatDoNotContainBook(Int32 book)
+        {
+            return this._bookGroups.Where(bg => !bg.Contains(book));
+        }
+
         public IReadOnlyCollection<List<Int32>> Groups
         {
             get
