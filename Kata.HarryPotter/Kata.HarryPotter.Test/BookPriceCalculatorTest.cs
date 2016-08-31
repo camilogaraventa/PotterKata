@@ -11,12 +11,20 @@ namespace Kata.HarryPotter.Test
     [TestClass]
     public class BookPriceCalculatorTest
     {
+        private BookPriceCalculator _bookPriceCalculator;
+
+        [TestInitialize]
+        public void Init()
+        {
+            this._bookPriceCalculator = new BookPriceCalculator();
+        }
+
         [TestMethod]
         public void ZeroBooks_CostsZero()
         {
             List<Int32> books = this.GenerateBooksList();
 
-            Decimal cost = BookPriceCalculator.Calculate(books);
+            Decimal cost = this._bookPriceCalculator.Calculate(books);
 
             Assert.AreEqual(0, cost);
 
@@ -27,7 +35,7 @@ namespace Kata.HarryPotter.Test
         {
             List<Int32> books = this.GenerateBooksList(1);
 
-            Decimal cost = BookPriceCalculator.Calculate(books);
+            Decimal cost = this._bookPriceCalculator.Calculate(books);
 
             Assert.AreEqual(8, cost);
         }
@@ -37,7 +45,7 @@ namespace Kata.HarryPotter.Test
         {
             List<Int32> books = this.GenerateBooksList(2);
 
-            Decimal cost = BookPriceCalculator.Calculate(books);
+            Decimal cost = this._bookPriceCalculator.Calculate(books);
 
             Assert.AreEqual(8, cost);
         }
@@ -47,7 +55,7 @@ namespace Kata.HarryPotter.Test
         {
             List<Int32> books = this.GenerateBooksList(3);
 
-            Decimal cost = BookPriceCalculator.Calculate(books);
+            Decimal cost = this._bookPriceCalculator.Calculate(books);
 
             Assert.AreEqual(8, cost);
         }
@@ -57,7 +65,7 @@ namespace Kata.HarryPotter.Test
         {
             List<Int32> books = this.GenerateBooksList(4);
 
-            Decimal cost = BookPriceCalculator.Calculate(books);
+            Decimal cost = this._bookPriceCalculator.Calculate(books);
 
             Assert.AreEqual(8, cost);
         }
@@ -67,7 +75,7 @@ namespace Kata.HarryPotter.Test
         {
             List<Int32> books = this.GenerateBooksList(5);
 
-            Decimal cost = BookPriceCalculator.Calculate(books);
+            Decimal cost = this._bookPriceCalculator.Calculate(books);
 
             Assert.AreEqual(8, cost);
         }
@@ -77,7 +85,7 @@ namespace Kata.HarryPotter.Test
         {
             List<Int32> books = this.GenerateBooksList(1, 1);
 
-            Decimal cost = BookPriceCalculator.Calculate(books);
+            Decimal cost = this._bookPriceCalculator.Calculate(books);
 
             Assert.AreEqual(16, cost);
         }
@@ -87,7 +95,7 @@ namespace Kata.HarryPotter.Test
         {
             List<Int32> books = this.GenerateBooksList(1, 2);
 
-            Decimal cost = BookPriceCalculator.Calculate(books);
+            Decimal cost = this._bookPriceCalculator.Calculate(books);
 
             Assert.AreEqual(15.2m, cost);
         }
@@ -97,7 +105,7 @@ namespace Kata.HarryPotter.Test
         {
             List<Int32> books = this.GenerateBooksList(1, 2, 3);
 
-            Decimal cost = BookPriceCalculator.Calculate(books);
+            Decimal cost = this._bookPriceCalculator.Calculate(books);
 
             Assert.AreEqual(21.6m, cost);
         }
@@ -107,7 +115,7 @@ namespace Kata.HarryPotter.Test
         {
             List<Int32> books = this.GenerateBooksList(1, 2, 3, 4);
 
-            Decimal cost = BookPriceCalculator.Calculate(books);
+            Decimal cost = this._bookPriceCalculator.Calculate(books);
 
             Assert.AreEqual(25.6m, cost);
         }
@@ -117,9 +125,19 @@ namespace Kata.HarryPotter.Test
         {
             List<Int32> books = this.GenerateBooksList(1, 2, 3, 4, 5);
 
-            Decimal cost = BookPriceCalculator.Calculate(books);
+            Decimal cost = this._bookPriceCalculator.Calculate(books);
 
             Assert.AreEqual(30, cost);
+        }
+
+        [TestMethod]
+        public void ThreeBooksTwoDifferent_GetFivePercentDiscountOnTwoOfThem()
+        {
+            List<Int32> books = this.GenerateBooksList(1, 2, 1);
+
+            Decimal cost = this._bookPriceCalculator.Calculate(books);
+
+            Assert.AreEqual(23.2m, cost);
         }
 
         private List<Int32> GenerateBooksList(params Int32[] books)
